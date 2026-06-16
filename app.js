@@ -13,9 +13,9 @@ const GALLERY_DATA = {
   ],
   animation: [
     { id: 'anim1', type: 'video', src: 'assets/videos/tebi-omni.mp4', title: '전방향 미소년 테비' },
-    { id: 'anim2', type: 'drive', driveId: 'DRIVE_ID_1', title: '에이멜쇼츠 완성본' },
-    { id: 'anim3', type: 'drive', driveId: 'DRIVE_ID_2', title: '에이멜 테비 롱폼' },
-    { id: 'anim4', type: 'drive', driveId: 'DRIVE_ID_3', title: '테비 절제 보스전' },
+    { id: 'anim2', type: 'placeholder', title: '에이멜쇼츠 완성본', desc: '🎬 업로드 준비 중' },
+    { id: 'anim3', type: 'placeholder', title: '에이멜 테비 롱폼', desc: '🎬 업로드 준비 중' },
+    { id: 'anim4', type: 'placeholder', title: '테비 절제 보스전', desc: '🎬 업로드 준비 중' },
   ],
   emoticon: Array.from({ length: 24 }, (_, i) => ({
     id: `emo${i + 1}`,
@@ -24,15 +24,15 @@ const GALLERY_DATA = {
     title: `이모티콘 #${i + 1}`,
   })),
   video: [
-    { id: 'vid1', type: 'placeholder', title: '영상편집 작품 #1', desc: 'Google Drive 업로드 예정' },
-    { id: 'vid2', type: 'placeholder', title: '영상편집 작품 #2', desc: 'Google Drive 업로드 예정' },
-    { id: 'vid3', type: 'placeholder', title: '영상편집 작품 #3', desc: 'Google Drive 업로드 예정' },
+    { id: 'vid1', type: 'placeholder', title: '영상편집 작품 #1', desc: '🎬 업로드 준비 중' },
+    { id: 'vid2', type: 'placeholder', title: '영상편집 작품 #2', desc: '🎬 업로드 준비 중' },
+    { id: 'vid3', type: 'placeholder', title: '영상편집 작품 #3', desc: '🎬 업로드 준비 중' },
   ],
 };
 
 const PUBLIC_FILES = [
-  { name: '파르페 이모티콘 세트 (미리보기)', size: '6.5MB', url: '#' },
-  { name: '전방향 미소년 테비 (홍보용)', size: '6.3MB', url: 'assets/videos/tebi-omni.mp4' },
+  { name: '파르페 이모티콘 세트 (갤러리 보기)', size: '24종', url: '#emoticon-tab', icon: '🎨' },
+  { name: '전방향 미소년 테비 (홍보용 영상)', size: '6.3MB', url: 'assets/videos/tebi-omni.mp4', icon: '🎬' },
 ];
 
 const TIMELINE = [
@@ -236,18 +236,16 @@ function initTyping() {
 // ── 4. 갤러리 렌더링 ──────────────────────────────────────────────────────────
 function buildGalleryCard(item, index, tabName) {
   const card = document.createElement('div');
-  const isEmo = tabName === 'emoticon';
-  card.className = 'gallery-card reveal' + (isEmo ? ' emo-card' : '');
+  card.className = 'gallery-card reveal';
   card.dataset.index = index;
   card.dataset.tab   = tabName;
-  if (isEmo) card.dataset.emoNum = String(index + 1); // 1~24
 
   if (item.type === 'image') {
     card.innerHTML = `
       <div class="card-img-wrap">
         <img src="${item.src}" alt="${item.title}" loading="lazy">
       </div>
-      <div class="card-info"><span class="card-title">${item.title}</span>${isEmo ? '<span class="emo-tap-hint">🔊 탭해서 들어보기</span>' : ''}</div>`;
+      <div class="card-info"><span class="card-title">${item.title}</span></div>`;
   } else if (item.type === 'video') {
     card.innerHTML = `
       <div class="card-img-wrap card-video-thumb">
@@ -515,75 +513,38 @@ function initGoldDust() {
   setInterval(periodicGold, 1800);
 }
 
-// ── 6c. 이모티콘 음성 표현 (Web Speech API) ───────────────────────────────────
-const EMOTICON_SPEECH = {
-  1:  '안녕~!',
-  2:  '으음~',
-  3:  '어디가~?',
-  4:  '큭큭큭!',
-  5:  '힝~',
-  6:  '응!',
-  7:  '퍼~엉!',
-  8:  '비~상!',
-  9:  '...',
-  10: '어머나!',
-  11: '어쩔티비~',
-  12: '안 봐도 됨!',
-  13: '화났어!!!',
-  14: '짜~증나!',
-  15: '찰칵!',
-  16: '음양영~',
-  17: '몇 개야?',
-  18: '빠이빠이~!',
-  19: '낼름~',
-  20: '문 열어!! 열어!!',
-  21: '한 끔만~!',
-  22: '힘내!!!',
-  23: '총! 섧!',
-  24: '가져가!! 다 가져가!!',
-};
+// ── 6c. 비행 캐릭터 금가루 파티클 ────────────────────────────────────────────
+function initFlyingChar() {
+  const charWrap = qs('.flying-char-wrap');
+  if (!charWrap) return;
 
-let speechVoice = null;
+  setInterval(() => {
+    const rect = charWrap.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const cx = rect.left + window.scrollX + rect.width  / 2;
+    const cy = rect.top  + window.scrollY + rect.height / 2;
 
-function loadKorVoice() {
-  const voices = window.speechSynthesis?.getVoices() || [];
-  speechVoice = voices.find(v => v.lang.startsWith('ko')) || voices[0] || null;
-}
-
-function speakEmoticon(numStr) {
-  if (!window.speechSynthesis) return;
-  const num = parseInt(numStr, 10);
-  const text = EMOTICON_SPEECH[num] || `이모티콘 ${num}번!`;
-  window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang   = 'ko-KR';
-  utt.pitch  = 1.7 + Math.random() * 0.3;   // 높은 음
-  utt.rate   = 1.1 + Math.random() * 0.25;  // 약간 빠르게
-  utt.volume = 1;
-  if (speechVoice) utt.voice = speechVoice;
-  window.speechSynthesis.speak(utt);
-}
-
-function initEmoticonsVoice() {
-  if (window.speechSynthesis) {
-    loadKorVoice();
-    window.speechSynthesis.onvoiceschanged = loadKorVoice;
-  }
-
-  // 이모티콘 탭 카드 클릭 감지
-  document.addEventListener('click', (e) => {
-    const card = e.target.closest('.gallery-card.emo-card');
-    if (!card) return;
-    const num = card.dataset.emoNum;
-    if (!num) return;
-
-    // 말하는 동안 카드 강조
-    card.classList.add('speaking');
-    speakEmoticon(num);
-
-    const utt = window._lastUtt;
-    setTimeout(() => card.classList.remove('speaking'), 1500);
-  });
+    for (let i = 0; i < 3; i++) {
+      const isStar = Math.random() < 0.4;
+      const el = document.createElement('div');
+      el.className = isStar ? 'gold-star' : 'gold-particle';
+      const gx  = (Math.random() - 0.5) * 50;
+      const dur  = (0.6 + Math.random() * 0.7).toFixed(2);
+      const color = GOLD_COLORS[Math.floor(Math.random() * GOLD_COLORS.length)];
+      el.style.cssText = [
+        `left:${cx + (Math.random()-0.5)*20}px`,
+        `top:${cy  + (Math.random()-0.5)*20}px`,
+        `--gx:${gx}px`,
+        `--dur:${dur}s`,
+        isStar
+          ? `color:${color};font-size:${8+Math.random()*8}px`
+          : `width:${3+Math.random()*5}px;height:${3+Math.random()*5}px;background:${color}`,
+      ].join(';');
+      if (isStar) el.textContent = STARS_CHARS[Math.floor(Math.random() * STARS_CHARS.length)];
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
+  }, 350);
 }
 
 // ── 7. 스크롤 스파이 ──────────────────────────────────────────────────────────
@@ -659,11 +620,25 @@ function initRepository() {
     PUBLIC_FILES.forEach((f) => {
       const item = document.createElement('div');
       item.className = 'file-item reveal';
+      const isGalleryLink = f.url === '#emoticon-tab';
+      const linkHtml = isGalleryLink
+        ? `<a class="file-download" href="#gallery" data-emoticon-tab="1">갤러리 보기</a>`
+        : `<a class="file-download" href="${f.url}" download target="_blank">다운로드</a>`;
       item.innerHTML = `
+        <span class="file-icon-sm">${f.icon || '📁'}</span>
         <span class="file-name">${f.name}</span>
         <span class="file-size">${f.size}</span>
-        <a class="file-download" href="${f.url}" ${f.url !== '#' ? 'download target="_blank"' : ''}>다운로드</a>`;
+        ${linkHtml}`;
       publicGrid.appendChild(item);
+    });
+
+    // 이모티콘 탭 이동 처리
+    publicGrid.addEventListener('click', (e) => {
+      const link = e.target.closest('[data-emoticon-tab]');
+      if (!link) return;
+      e.preventDefault();
+      qs('#gallery')?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => qs('.tab-btn[data-tab="emoticon"]')?.click(), 400);
     });
   }
 
@@ -916,15 +891,23 @@ function initSNS() {
 
 // ── Giscus 댓글 (GitHub Discussions 활성화 후 동작) ─────────────────────────
 function initGiscus() {
-  const REPO_ID     = '';   // giscus.app에서 발급된 repo ID 입력 후 활성화
-  const CATEGORY_ID = '';   // giscus.app에서 발급된 category ID 입력 후 활성화
+  const REPO_ID     = 'R_kgDOS7_7zg';  // sjbaik0431/parfait-art-gallery GraphQL ID
+  const CATEGORY_ID = '';               // Discussions 활성화 후 giscus.app에서 발급
 
   const container = qs('#giscus-container');
   if (!container || container.dataset.loaded) return;
 
-  // repo ID가 없으면 Giscus를 로드하지 않음 (오류 스팸 방지)
-  if (!REPO_ID || !CATEGORY_ID) {
-    container.innerHTML = '<p style="color:var(--color-primary);text-align:center;opacity:.6;padding:2rem">💬 댓글 기능은 GitHub Discussions 설정 후 활성화됩니다</p>';
+  if (!CATEGORY_ID) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:2.5rem;color:var(--color-primary);opacity:.75">
+        <p style="font-size:1.1rem;margin-bottom:.8rem">💬 댓글 기능 활성화 방법</p>
+        <ol style="text-align:left;display:inline-block;line-height:2;font-size:.9rem;opacity:.85">
+          <li>GitHub 저장소 Settings → Features → <b>Discussions</b> 체크</li>
+          <li><a href="https://github.com/apps/giscus" target="_blank" style="color:var(--color-accent)">github.com/apps/giscus</a> → 저장소에 Install</li>
+          <li><a href="https://giscus.app" target="_blank" style="color:var(--color-accent)">giscus.app</a> → sjbaik0431/parfait-art-gallery 입력 → category ID 복사</li>
+          <li>ID를 파르페 아빠에게 전달하면 즉시 활성화!</li>
+        </ol>
+      </div>`;
     return;
   }
 
@@ -969,13 +952,33 @@ function initSmoothScroll() {
   });
 }
 
+// ── 자동 음악 재생 ────────────────────────────────────────────────────────────
+function tryAutoplayMusic() {
+  const btn = qs('#music-toggle');
+  const startMusic = () => {
+    if (!window.parfaitMusic) return;
+    window.parfaitMusic.play();
+    if (btn) { btn.textContent = '⏸'; btn.dataset.playing = 'true'; }
+  };
+
+  // 첫 시도 (이미 사용자 인터랙션이 있었으면 성공)
+  setTimeout(startMusic, 600);
+
+  // 실패 대비: 첫 번째 클릭/터치 시 재시도
+  const onFirstInteraction = () => {
+    if (btn?.dataset.playing !== 'true') startMusic();
+  };
+  document.addEventListener('click',     onFirstInteraction, { once: true });
+  document.addEventListener('touchstart', onFirstInteraction, { once: true });
+}
+
 // ── 인증 후 실행되는 초기화 ──────────────────────────────────────────────────
-// [FIX-MED] observeReveal() 제거 — initScrollReveal()과 중복, 성능 낭비
 function initAfterUnlock() {
   initParticles();
   initTyping();
   initGoldDust();
-  initEmoticonsVoice();
+  initFlyingChar();
+  tryAutoplayMusic();
 }
 
 // ── 메인 초기화 ───────────────────────────────────────────────────────────────
@@ -985,6 +988,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('parfait_invited') === 'true') {
     initParticles();
     initTyping();
+    initGoldDust();
+    initFlyingChar();
+    tryAutoplayMusic();
   }
 
   initHeaderScroll();

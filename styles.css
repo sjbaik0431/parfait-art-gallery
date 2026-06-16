@@ -625,10 +625,59 @@ section {
 /* QA: .hero-profile-img 클래스로 선언된 프로필 이미지 대응 */
 .hero-profile img,
 .hero-profile-img {
-  width: 100%;
-  height: 100%;
+  width: 28px;
+  height: 28px;
   object-fit: cover;
   border-radius: 50%;
+  border: 1.5px solid var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* ── 빗자루 비행 캐릭터 ────────────────────────────────────────────────────── */
+.flying-char-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: flyHeroPath 18s ease-in-out infinite;
+  will-change: transform;
+  filter: drop-shadow(0 0 10px #FFD700) drop-shadow(0 0 4px rgba(255,165,0,.6));
+}
+
+.flying-char-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #FFD700;
+  object-fit: cover;
+  display: block;
+  transform: rotate(-8deg);
+}
+
+.broom-emoji {
+  font-size: 20px;
+  display: block;
+  transform: rotate(-40deg) translateX(6px) translateY(-6px);
+  margin-top: -10px;
+}
+
+@keyframes flyHeroPath {
+  0%   { transform: translate(8vw,  72vh) rotate(0deg);   }
+  8%   { transform: translate(30vw, 18vh) rotate(-8deg);  }
+  18%  { transform: translate(68vw, 28vh) rotate(6deg);   }
+  28%  { transform: translate(82vw, 58vh) rotate(-5deg);  }
+  38%  { transform: translate(60vw, 82vh) rotate(8deg);   }
+  50%  { transform: translate(28vw, 76vh) rotate(-6deg);  }
+  60%  { transform: translate(6vw,  45vh) rotate(7deg);   }
+  70%  { transform: translate(18vw, 12vh) rotate(-4deg);  }
+  80%  { transform: translate(55vw, 8vh)  rotate(5deg);   }
+  90%  { transform: translate(78vw, 22vh) rotate(-7deg);  }
+  100% { transform: translate(8vw,  72vh) rotate(0deg);   }
 }
 
 .hero-text {
@@ -1784,6 +1833,91 @@ h1.glitch::after,
 .fanmail-wrapper {
   max-width: 640px;
   margin: 0 auto;
+}
+
+/* ── 팬레터 폼 전용 스타일 ──────────────────────────────────────────────── */
+#fanmail-form {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fanmail-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fanmail-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.fanmail-input,
+.fanmail-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(0,206,209,0.3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  line-height: 1.7;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  box-sizing: border-box;
+}
+
+.fanmail-textarea {
+  min-height: 340px;
+  resize: vertical;
+}
+
+.fanmail-input:focus,
+.fanmail-textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 16px rgba(0,206,209,.25), inset 0 0 10px rgba(0,206,209,.05);
+  background: rgba(0,206,209,0.04);
+}
+
+.fanmail-input::placeholder,
+.fanmail-textarea::placeholder {
+  color: rgba(127,207,209,.4);
+}
+
+.fanmail-submit {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #fff;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: var(--glow-primary);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.fanmail-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 28px rgba(0,206,209,.6);
+}
+
+.repo-notice {
+  padding: 16px 20px;
+  color: var(--color-text-muted);
+  font-size: .9rem;
+  border-radius: var(--radius-sm);
+  margin-top: 16px;
+  text-align: center;
 }
 
 .form-group {
