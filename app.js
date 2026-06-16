@@ -2,8 +2,6 @@
 // === PARFAIT ART GALLERY APP ===
 
 // ── 상수 ──────────────────────────────────────────────────────────────────────
-const INVITE_CODE = '2026';
-
 const GALLERY_DATA = {
   character: [
     { id: 'char1', type: 'image', src: 'assets/images/char1.png', title: '파르페 캐릭터 Vol.1' },
@@ -76,54 +74,6 @@ const TIPS = [
 // ── 유틸 ──────────────────────────────────────────────────────────────────────
 const qs  = (sel, root = document) => root.querySelector(sel);
 const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
-
-// ── 1. 락스크린 ───────────────────────────────────────────────────────────────
-// [FIX-HIGH] ID 불일치 수정: #invite-input→#lock-code-input, #invite-btn→#lock-submit-btn, #invite-error→#lock-error-msg
-function initLockScreen() {
-  const lockScreen = qs('#lock-screen');
-  if (!lockScreen) return;
-
-  if (localStorage.getItem('parfait_invited') === 'true') {
-    lockScreen.style.display = 'none';
-    return;
-  }
-
-  lockScreen.style.display = 'flex';
-
-  const input  = qs('#lock-code-input', lockScreen);
-  const btn    = qs('#lock-submit-btn', lockScreen);
-  const errMsg = qs('#lock-error-msg',  lockScreen);
-
-  function tryUnlock() {
-    const val = (input ? input.value : '').trim().toLowerCase();
-    if (val === INVITE_CODE) {
-      localStorage.setItem('parfait_invited', 'true');
-      lockScreen.classList.add('lock-exit');
-      lockScreen.addEventListener('transitionend', () => {
-        lockScreen.style.display = 'none';
-      }, { once: true });
-      setTimeout(initAfterUnlock, 50);
-    } else {
-      if (errMsg) {
-        errMsg.textContent = '초대코드가 올바르지 않습니다. 다시 확인해주세요.';
-        errMsg.style.display = 'block';
-      }
-      if (input) {
-        input.classList.add('shake');
-        input.addEventListener('animationend', () => input.classList.remove('shake'), { once: true });
-        input.value = '';
-        input.focus();
-      }
-    }
-  }
-
-  if (btn) btn.addEventListener('click', tryUnlock);
-  if (input) {
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') tryUnlock();
-    });
-  }
-}
 
 // ── 2. 파티클 배경 ────────────────────────────────────────────────────────────
 function initParticles() {
@@ -681,18 +631,10 @@ function initRepository() {
 
   const privateContent = qs('#repo-private');
   if (privateContent) {
-    const isAuth = localStorage.getItem('parfait_invited') === 'true';
     const lockedMsg   = qs('#private-locked', privateContent);
     const privateBody = qs('#private-body',   privateContent);
-    if (lockedMsg && privateBody) {
-      if (isAuth) {
-        lockedMsg.style.display   = 'none';
-        privateBody.style.display = 'block';
-      } else {
-        lockedMsg.style.display   = 'block';
-        privateBody.style.display = 'none';
-      }
-    }
+    if (lockedMsg)   lockedMsg.style.display   = 'none';
+    if (privateBody) privateBody.style.display = 'block';
   }
 
   repoBtns.forEach((btn) => {
@@ -1022,15 +964,11 @@ function initAfterUnlock() {
 
 // ── 메인 초기화 ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  initLockScreen();
-
-  if (localStorage.getItem('parfait_invited') === 'true') {
-    initParticles();
-    initTyping();
-    initGoldDust();
-    initFlyingChar();
-    tryAutoplayMusic();
-  }
+  initParticles();
+  initTyping();
+  initGoldDust();
+  initFlyingChar();
+  tryAutoplayMusic();
 
   initHeaderScroll();
   initHamburger();
