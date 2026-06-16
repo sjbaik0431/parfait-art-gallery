@@ -891,25 +891,11 @@ function initSNS() {
 
 // ── Giscus 댓글 (GitHub Discussions 활성화 후 동작) ─────────────────────────
 function initGiscus() {
-  const REPO_ID     = 'R_kgDOS7_7zg';  // sjbaik0431/parfait-art-gallery GraphQL ID
-  const CATEGORY_ID = '';               // Discussions 활성화 후 giscus.app에서 발급
+  const REPO_ID     = 'R_kgDOS7_7zg';
+  const CATEGORY_ID = 'DIC_kwDOS7_7zs4C_Pvr';  // General
 
   const container = qs('#giscus-container');
   if (!container || container.dataset.loaded) return;
-
-  if (!CATEGORY_ID) {
-    container.innerHTML = `
-      <div style="text-align:center;padding:2.5rem;color:var(--color-primary);opacity:.75">
-        <p style="font-size:1.1rem;margin-bottom:.8rem">💬 댓글 기능 활성화 방법</p>
-        <ol style="text-align:left;display:inline-block;line-height:2;font-size:.9rem;opacity:.85">
-          <li>GitHub 저장소 Settings → Features → <b>Discussions</b> 체크</li>
-          <li><a href="https://github.com/apps/giscus" target="_blank" style="color:var(--color-accent)">github.com/apps/giscus</a> → 저장소에 Install</li>
-          <li><a href="https://giscus.app" target="_blank" style="color:var(--color-accent)">giscus.app</a> → sjbaik0431/parfait-art-gallery 입력 → category ID 복사</li>
-          <li>ID를 파르페 아빠에게 전달하면 즉시 활성화!</li>
-        </ol>
-      </div>`;
-    return;
-  }
 
   const observer = new IntersectionObserver((entries) => {
     if (!entries[0].isIntersecting) return;
