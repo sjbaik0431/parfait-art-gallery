@@ -917,7 +917,7 @@ function initSNS() {
   const SNS_LINKS = [
     { name: 'YouTube',    icon: '▶',  url: '#', color: '#FF0000' },
     { name: 'Twitter / X', icon: '𝕏', url: '#', color: '#1DA1F2' },
-    { name: 'Instagram',  icon: '📷', url: '#', color: '#E1306C' },
+    { name: '씨미',       icon: '🌸', url: '#', color: '#FF69B4' },
     { name: 'OGQ Market', icon: '🎨', url: '#', color: '#00CED1' },
   ];
 
