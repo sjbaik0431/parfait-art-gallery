@@ -938,19 +938,25 @@ function initSmoothScroll() {
   });
 }
 
-// ── 자동 음악 재생 ────────────────────────────────────────────────────────────
+// ── 자동 음악 재생 (10초 후 자동 정지) ──────────────────────────────────────
 function tryAutoplayMusic() {
   const btn = qs('#music-toggle');
+
+  const stopMusic = () => {
+    if (!window.parfaitMusic) return;
+    window.parfaitMusic.pause();
+    if (btn) { btn.textContent = '▶'; btn.dataset.playing = 'false'; }
+  };
+
   const startMusic = () => {
     if (!window.parfaitMusic) return;
     window.parfaitMusic.play();
     if (btn) { btn.textContent = '⏸'; btn.dataset.playing = 'true'; }
+    setTimeout(stopMusic, 10000);  // 10초 후 자동 정지
   };
 
-  // 첫 시도 (이미 사용자 인터랙션이 있었으면 성공)
   setTimeout(startMusic, 600);
 
-  // 실패 대비: 첫 번째 클릭/터치 시 재시도
   const onFirstInteraction = () => {
     if (btn?.dataset.playing !== 'true') startMusic();
   };
