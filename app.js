@@ -916,10 +916,18 @@ function initSNS() {
 
 // ── Giscus 댓글 (GitHub Discussions 활성화 후 동작) ─────────────────────────
 function initGiscus() {
-  const container = qs('#giscus-container');
-  if (!container || container.dataset.loaded) return;  // 중복 방지
+  const REPO_ID     = '';   // giscus.app에서 발급된 repo ID 입력 후 활성화
+  const CATEGORY_ID = '';   // giscus.app에서 발급된 category ID 입력 후 활성화
 
-  // IntersectionObserver: 댓글 섹션이 뷰포트에 들어올 때만 로드
+  const container = qs('#giscus-container');
+  if (!container || container.dataset.loaded) return;
+
+  // repo ID가 없으면 Giscus를 로드하지 않음 (오류 스팸 방지)
+  if (!REPO_ID || !CATEGORY_ID) {
+    container.innerHTML = '<p style="color:var(--color-primary);text-align:center;opacity:.6;padding:2rem">💬 댓글 기능은 GitHub Discussions 설정 후 활성화됩니다</p>';
+    return;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     if (!entries[0].isIntersecting) return;
     observer.disconnect();
@@ -929,9 +937,9 @@ function initGiscus() {
     const script = document.createElement('script');
     script.src                     = 'https://giscus.app/client.js';
     script.dataset.repo            = 'sjbaik0431/parfait-art-gallery';
-    script.dataset.repoId          = '';   // GitHub Discussions 활성화 후 입력
+    script.dataset.repoId          = REPO_ID;
     script.dataset.category        = 'General';
-    script.dataset.categoryId      = '';   // GitHub Discussions 활성화 후 입력
+    script.dataset.categoryId      = CATEGORY_ID;
     script.dataset.mapping         = 'pathname';
     script.dataset.strict          = '0';
     script.dataset.reactionsEnabled = '1';
