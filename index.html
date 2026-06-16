@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>파르페 아트 갤러리</title>
+  <meta name="description" content="파르페의 아트 갤러리 — 버튜버 팬아트, 3D 모델, 이모티콘, 영상편집 작품 모음" />
+  <meta property="og:title" content="파르페 아트 갤러리" />
+  <meta property="og:description" content="파르페의 아트 갤러리 — 버튜버 팬아트, 3D 모델, 이모티콘, 영상편집 작품 모음" />
+  <meta property="og:image" content="https://sjbaik0431.github.io/parfait-art-gallery/assets/images/parfait.png" />
+  <meta property="og:url" content="https://sjbaik0431.github.io/parfait-art-gallery" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="파르페 아트 갤러리" />
+  <meta name="twitter:description" content="파르페의 아트 갤러리 — 버튜버 팬아트, 3D 모델, 이모티콘, 영상편집 작품 모음" />
+  <meta name="twitter:image" content="https://sjbaik0431.github.io/parfait-art-gallery/assets/images/parfait.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==================== LOCK SCREEN ==================== -->
+  <section id="lock-screen">
+    <div id="lock-screen-form">
+      <div id="lock-logo">
+        <span class="glitch neon-pulse">🍧 PARFAIT ART GALLERY</span>
+        <p>초대코드를 입력하세요</p>
+      </div>
+      <div class="lock-input-row">
+        <!-- app.js initLockScreen()이 참조하는 ID: #invite-input, #invite-btn, #invite-error -->
+        <input
+          type="password"
+          id="lock-code-input"
+          class="fanmail-input"
+          placeholder="invite code"
+          autocomplete="off"
+          aria-label="초대코드 입력"
+        />
+        <button id="lock-submit-btn" type="button" class="fanmail-submit">입장</button>
+      </div>
+      <span id="lock-error-msg" role="alert"></span>
+    </div>
+  </section>
+
+  <!-- ==================== HEADER ==================== -->
+  <header id="header">
+    <nav class="nav-bar" aria-label="주 네비게이션">
+      <a href="#hero" class="nav-logo" aria-label="파르페 아트 갤러리 홈">
+        <img src="assets/images/parfait.png" class="nav-logo-img" alt="파르페" width="40" height="40" />
+        <span class="nav-logo-text neon-pulse">파르페 아트 갤러리</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="#hero" class="nav-link">홈</a></li>
+        <li><a href="#gallery" class="nav-link">갤러리</a></li>
+        <li><a href="#repository" class="nav-link">자료실</a></li>
+        <li><a href="#story" class="nav-link">스토리</a></li>
+        <li><a href="#tips" class="nav-link">팁</a></li>
+        <li><a href="#fanmail" class="nav-link">팬레터</a></li>
+        <li><a href="#sns" class="nav-link">SNS</a></li>
+        <li><a href="#comments" class="nav-link">댓글</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <!-- app.js initProfile()이 참조하는 ID: #profile-img -->
+      <img
+        id="profile-img"
+        class="hero-profile-img"
+        src="assets/images/parfait.png"
+        alt="파르페 프로필 이미지"
+        width="160"
+        height="160"
+        loading="eager"
+      />
+      <!-- app.js initTyping()이 참조하는 ID: #typing-title, #typing-subtitle -->
+      <h1 id="typing-title" class="hero-title glitch" data-text="PARFAIT ART GALLERY">
+        PARFAIT ART GALLERY<span class="typing-cursor" aria-hidden="true">|</span>
+      </h1>
+      <p id="typing-subtitle" class="hero-subtitle">버튜버 팬아트 · 3D 모델 · 이모티콘 · 영상편집</p>
+      <a href="#gallery" class="scroll-down" aria-label="갤러리로 스크롤">
+        <span>↓ 작품 보기</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== GALLERY ==================== -->
+  <section id="gallery">
+    <h2 class="section-title reveal">갤 러 리</h2>
+
+    <div class="gallery-tabs" role="tablist" aria-label="갤러리 탭">
+      <!-- app.js initGallery()의 tabMap 키: character, animation, emoticon, video
+           data-tab 값을 tabMap 키와 일치시킴 -->
+      <button class="tab-btn active" data-tab="character" role="tab" aria-selected="true" aria-controls="panel-character">캐릭터</button>
+      <button class="tab-btn" data-tab="animation" role="tab" aria-selected="false" aria-controls="panel-animation">애니·무비</button>
+      <button class="tab-btn" data-tab="emoticon" role="tab" aria-selected="false" aria-controls="panel-emoticon">이모티콘</button>
+      <button class="tab-btn" data-tab="video" role="tab" aria-selected="false" aria-controls="panel-video">영상편집</button>
+    </div>
+
+    <!-- app.js: qsa('.tab-content'), qs('.tab-content[data-tab="..."] .gallery-grid') -->
+    <!-- 클래스명 .tab-content, 속성 data-tab 으로 통일 -->
+
+    <!-- 캐릭터 패널 -->
+    <div class="tab-content active" data-tab="character" id="panel-character" role="tabpanel">
+      <div class="gallery-grid">
+        <!-- app.js buildGalleryCard()가 동적 렌더링 — 초기 HTML 비워둠 -->
+      </div>
+    </div>
+
+    <!-- 애니·무비 패널 -->
+    <div class="tab-content" data-tab="animation" id="panel-animation" role="tabpanel">
+      <div class="gallery-grid">
+        <!-- app.js buildGalleryCard()가 동적 렌더링 -->
+      </div>
+    </div>
+
+    <!-- 이모티콘 패널
+         app.js: emoticon 항목을 .gallery-grid에 렌더링 시도하지만
+         buildGalleryCard()가 type='image'로 생성함.
+         HTML에 .emoticon-grid를 두되 .gallery-grid도 함께 배치하지 않으면
+         중복 없이 JS가 .gallery-grid만 채움 -->
+    <div class="tab-content" data-tab="emoticon" id="panel-emoticon" role="tabpanel">
+      <div class="gallery-grid emoticon-grid">
+        <!-- app.js buildGalleryCard()가 동적 렌더링 -->
+      </div>
+    </div>
+
+    <!-- 영상편집 패널 -->
+    <div class="tab-content" data-tab="video" id="panel-video" role="tabpanel">
+      <div class="gallery-grid">
+        <!-- app.js buildGalleryCard()가 동적 렌더링 -->
+      </div>
+      <p class="repo-upload-guide glass">
+        작품은 <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">Google Drive</a>에 업로드 후 링크를 제공해주세요.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== REPOSITORY ==================== -->
+  <section id="repository">
+    <h2 class="section-title reveal">자 료 실</h2>
+
+    <div class="repo-tabs" role="tablist" aria-label="자료실 탭">
+      <button class="repo-tab-btn active" data-repo="public" role="tab" aria-selected="true" aria-controls="repo-panel-public">공개 자료</button>
+      <button class="repo-tab-btn" data-repo="private" role="tab" aria-selected="false" aria-controls="repo-panel-private">비공개 자료</button>
+    </div>
+
+    <!-- app.js initRepository():
+         qs('#repo-public .file-list') — 공개자료 파일목록 렌더링
+         qs('#repo-private') — 비공개 패널
+         qs('#private-locked', privateContent) — 잠금 메시지
+         qs('#private-body', privateContent) — 비공개 콘텐츠
+         qsa('.repo-content') — 탭 전환 대상
+         qs(`#repo-${target}`) — 탭 활성화 -->
+
+    <!-- 공개 자료실 -->
+    <div class="repo-content active" id="repo-public" role="tabpanel" aria-labelledby="repo-tab-public">
+      <div class="file-list" aria-label="공개 파일 목록">
+        <!-- app.js PUBLIC_FILES 동적 렌더링 -->
+      </div>
+      <!-- 정적 추가 파일 (app.js PUBLIC_FILES에 없는 항목) -->
+      <ul class="repo-file-list" aria-label="추가 공개 파일 목록">
+        <li class="repo-file-item">
+          <a href="assets/files/parfait-char-sheet.pdf" class="repo-file-link glass" download>
+            <span class="file-icon" aria-hidden="true">📄</span>
+            파르페 캐릭터 시트 (PDF)
+          </a>
+        </li>
+        <li class="repo-file-item">
+          <a href="assets/files/3d-model-guide.pdf" class="repo-file-link glass" download>
+            <span class="file-icon" aria-hidden="true">📐</span>
+            3D 모델링 입문 가이드 (PDF)
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 비공개 자료실 -->
+    <div class="repo-content" id="repo-private" role="tabpanel" aria-labelledby="repo-tab-private">
+      <!-- app.js가 #private-locked / #private-body를 찾아 show/hide -->
+      <div id="private-locked" class="repo-private-gate glass">
+        <p>🔒 비공개 자료실은 인증된 사용자만 이용 가능합니다.</p>
+        <p>초대코드로 로그인한 경우 자동으로 열립니다.</p>
+      </div>
+      <div id="private-body" style="display:none;">
+        <ul class="repo-file-list" aria-label="비공개 파일 목록">
+          <li class="repo-file-item">
+            <a href="https://drive.google.com/drive/folders/PRIVATE_FOLDER_ID" class="repo-file-link glass" target="_blank" rel="noopener noreferrer">
+              <span class="file-icon" aria-hidden="true">☁️</span>
+              비공개 작품 자료 (Google Drive)
+            </a>
+          </li>
+          <li class="repo-file-item">
+            <a href="https://drive.google.com/drive/folders/PRIVATE_FOLDER_ID_2" class="repo-file-link glass" target="_blank" rel="noopener noreferrer">
+              <span class="file-icon" aria-hidden="true">🎨</span>
+              작업 레이어 파일 모음 (Google Drive)
+            </a>
+          </li>
+        </ul>
+        <p class="repo-upload-guide glass">
+          파일 업로드: <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">Google Drive 업로드 폴더</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STORY ==================== -->
+  <section id="story">
+    <h2 class="section-title reveal">파르페 스토리</h2>
+    <!-- app.js initTimeline(): qs('#story .timeline') 으로 동적 렌더링 -->
+    <ol class="timeline" aria-label="파르페 성장 타임라인">
+      <!-- app.js TIMELINE 배열로 동적 렌더링 -->
+    </ol>
+  </section>
+
+  <!-- ==================== TIPS ==================== -->
+  <section id="tips">
+    <h2 class="section-title reveal">셀럽 성장 5가지 팁</h2>
+    <!-- app.js initTips(): qs('#tips .tips-grid') 으로 동적 렌더링 -->
+    <div class="tips-grid">
+      <!-- app.js TIPS 배열로 동적 렌더링 -->
+    </div>
+  </section>
+
+  <!-- ==================== FANMAIL ==================== -->
+  <section id="fanmail">
+    <h2 class="section-title reveal">팬 레 터</h2>
+    <p class="section-desc reveal">파르페에게 응원 메시지를 보내주세요 💌</p>
+    <!-- app.js initFanmail():
+         qs('#fan-name') — 닉네임 입력
+         qs('#fan-message') — 메시지 입력
+         qs('#fanmail-thanks') — 성공 메시지
+         qs('#fanmail-error') — 에러 메시지 -->
+    <form
+      id="fanmail-form"
+      method="POST"
+      action="https://formsubmit.co/bsj0431@gmail.com"
+      novalidate
+    >
+      <input type="hidden" name="_subject" value="파르페 아트 갤러리 팬레터" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="https://sjbaik0431.github.io/parfait-art-gallery" />
+
+      <div class="fanmail-field">
+        <label for="fan-name">닉네임</label>
+        <input
+          type="text"
+          id="fan-name"
+          name="name"
+          class="fanmail-input"
+          placeholder="당신의 닉네임"
+          required
+          maxlength="50"
+        />
+      </div>
+      <div class="fanmail-field">
+        <label for="fanmail-email">이메일 (선택)</label>
+        <input
+          type="email"
+          id="fanmail-email"
+          name="email"
+          class="fanmail-input"
+          placeholder="답장 받을 이메일 (선택)"
+          maxlength="100"
+        />
+      </div>
+      <div class="fanmail-field">
+        <label for="fan-message">메시지</label>
+        <textarea
+          id="fan-message"
+          name="message"
+          class="fanmail-textarea"
+          placeholder="파르페에게 하고 싶은 말을 자유롭게 적어주세요!"
+          rows="6"
+          required
+          maxlength="1000"
+        ></textarea>
+      </div>
+      <button type="submit" class="fanmail-submit">💌 전송하기</button>
+      <p id="fanmail-error" role="alert" style="display:none;color:var(--color-error,#ff4d6d);margin-top:.5rem;"></p>
+      <p id="fanmail-thanks" role="status" style="display:none;color:var(--color-accent,#00CED1);margin-top:.5rem;"></p>
+    </form>
+  </section>
+
+  <!-- ==================== SNS ==================== -->
+  <section id="sns">
+    <h2 class="section-title reveal">S N S</h2>
+    <!-- app.js initSNS(): qs('#sns .sns-grid') 으로 동적 렌더링 — 빈 컨테이너 유지 -->
+    <div class="sns-grid">
+      <!-- app.js SNS_LINKS 배열로 동적 렌더링 -->
+    </div>
+  </section>
+
+  <!-- ==================== COMMENTS ==================== -->
+  <section id="comments">
+    <h2 class="section-title reveal">댓 글</h2>
+    <!-- app.js initGiscus()가 동적으로 script 태그 삽입 — 빈 컨테이너 유지 -->
+    <div id="giscus-container"></div>
+  </section>
+
+  <!-- ==================== LIGHTBOX ==================== -->
+  <!-- app.js initLightbox()가 참조: #lightbox, #lightbox-content, #lightbox-close,
+       #lightbox-prev, #lightbox-next, #lightbox-title -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 뷰어">
+    <div class="lightbox-inner">
+      <button id="lightbox-close" type="button" class="lightbox-close" aria-label="닫기">&times;</button>
+      <button id="lightbox-prev" type="button" class="lightbox-nav lightbox-prev" aria-label="이전">&lsaquo;</button>
+      <div id="lightbox-content" class="lightbox-content"></div>
+      <button id="lightbox-next" type="button" class="lightbox-nav lightbox-next" aria-label="다음">&rsaquo;</button>
+      <p id="lightbox-title" class="lightbox-title"></p>
+    </div>
+  </div>
+
+  <!-- ==================== MUSIC PLAYER ==================== -->
+  <!-- app.js initMusicPlayer(): qs('#music-toggle'), qs('#music-vol')
+       app.js initVisualizer(): qs('#viz-canvas') -->
+  <div id="music-player" role="complementary" aria-label="음악 플레이어">
+    <canvas id="viz-canvas" width="120" height="36" aria-hidden="true"></canvas>
+    <span id="music-label">🎵 사이버펑크 앰비언트</span>
+    <input
+      type="range"
+      id="music-vol"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.5"
+      aria-label="볼륨 조절"
+    />
+    <button id="music-toggle" type="button" aria-label="음악 재생/일시정지">▶</button>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <p class="footer-logo neon-pulse">🍧 파르페 아트 갤러리</p>
+      <p class="footer-copy">
+        &copy; 2026 파르페 (백종원). All rights reserved.<br />
+        버튜버 팬아트 · 3D 모델 · 이모티콘 · 영상편집
+      </p>
+      <nav class="footer-nav" aria-label="푸터 네비게이션">
+        <a href="#hero" class="nav-link">홈</a>
+        <a href="#gallery" class="nav-link">갤러리</a>
+        <a href="#fanmail" class="nav-link">팬레터</a>
+        <a href="https://github.com/sjbaik0431/parfait-art-gallery" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
+      </nav>
+      <p class="footer-made">
+        Made with 💜 by 파르페 &amp; powered by
+        <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- music.js를 app.js보다 먼저 로드해 window.parfaitMusic 보장 -->
+  <script src="music.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
