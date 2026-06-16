@@ -650,20 +650,20 @@ section {
 }
 
 .flying-char-img {
-  width: 28px;
-  height: 28px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  border: 1.5px solid #FFD700;
+  border: 2px solid #FFD700;
   object-fit: cover;
   display: block;
   transform: rotate(-8deg);
 }
 
 .broom-emoji {
-  font-size: 20px;
+  font-size: 40px;
   display: block;
-  transform: rotate(-40deg) translateX(6px) translateY(-6px);
-  margin-top: -10px;
+  transform: rotate(-40deg) translateX(10px) translateY(-10px);
+  margin-top: -18px;
 }
 
 @keyframes flyHeroPath {
@@ -1224,8 +1224,9 @@ h1.glitch::after,
 .emoji-grid,
 .emoticon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px 20px;
+  padding: 12px 0;
 }
 
 /* QA: .emoticon-item 도 .emoji-card 와 동일 스타일 */
@@ -1605,6 +1606,27 @@ h1.glitch::after,
   background: rgba(0, 0, 0, 0.3);
   overflow: hidden;
   min-width: 0;
+}
+
+#music-stop {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 0, 110, 0.15);
+  border: 1px solid rgba(255, 0, 110, 0.45);
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+#music-stop:hover {
+  background: rgba(255, 0, 110, 0.3);
+  box-shadow: var(--glow-accent);
 }
 
 .music-volume {
@@ -2282,8 +2304,8 @@ h1.glitch::after,
 
   .emoji-grid,
   .emoticon-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 14px;
   }
 
   /* Timeline */
@@ -2379,8 +2401,8 @@ h1.glitch::after,
 
   .emoji-grid,
   .emoticon-grid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 10px;
   }
 
   /* Tab buttons */
@@ -2455,6 +2477,10 @@ h1.glitch::after,
 
   #music-visualizer {
     min-width: 60px;
+  }
+
+  #music-stop {
+    display: none;
   }
 
   /* Lock form */

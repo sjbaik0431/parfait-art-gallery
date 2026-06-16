@@ -13,9 +13,9 @@ const GALLERY_DATA = {
   ],
   animation: [
     { id: 'anim1', type: 'video', src: 'assets/videos/tebi-omni.mp4', title: '전방향 미소년 테비' },
-    { id: 'anim2', type: 'placeholder', title: '에이멜쇼츠 완성본', desc: '🎬 업로드 준비 중' },
-    { id: 'anim3', type: 'placeholder', title: '에이멜 테비 롱폼', desc: '🎬 업로드 준비 중' },
-    { id: 'anim4', type: 'placeholder', title: '테비 절제 보스전', desc: '🎬 업로드 준비 중' },
+    { id: 'anim2', type: 'link', url: 'https://drive.google.com/file/d/DRIVE_ID_에이멜쇼츠/view', title: '에이멜쇼츠 완성본', desc: '330MB · 클릭하여 Google Drive에서 재생' },
+    { id: 'anim3', type: 'link', url: 'https://drive.google.com/file/d/DRIVE_ID_롱폼/view', title: '에이멜 테비 롱폼 완성2', desc: '3.7GB · 클릭하여 Google Drive에서 재생' },
+    { id: 'anim4', type: 'link', url: 'https://drive.google.com/file/d/DRIVE_ID_보스전/view', title: '테비 절제 보스전', desc: '1GB · 클릭하여 Google Drive에서 재생' },
   ],
   emoticon: Array.from({ length: 24 }, (_, i) => ({
     id: `emo${i + 1}`,
@@ -36,19 +36,41 @@ const PUBLIC_FILES = [
 ];
 
 const TIMELINE = [
-  { date: '2024.03', text: '3D 모델링 독학 시작' },
-  { date: '2024.12', text: 'OGQ 이모티콘 24종 완성' },
-  { date: '2025.06', text: '테비 팬아트 영상 "전방향 미소년 테비" 완성' },
-  { date: '2026.02', text: '플레이브 세계관 애니메이션 프로젝트 착수' },
-  { date: '2026.06', text: '파르페 아트 갤러리 오픈' },
+  { date: '2024.03', text: 'Blender · VRoid Studio 독학 시작 — 유튜브 강의와 공식 문서만으로 3D 모델링 입문' },
+  { date: '2024.07', text: '파르페 오리지널 캐릭터 기초 디자인 완성 — 청보라 날개, 왕관, 시그니처 색감 확립' },
+  { date: '2024.12', text: 'OGQ 이모티콘 24종 완성 및 마켓 등록 — 감정 표현에 집중한 캐릭터 이모티콘 세트' },
+  { date: '2025.06', text: '테비 팬아트 영상 "전방향 미소년 테비" 완성 · 유튜브 첫 업로드' },
+  { date: '2026.02', text: '플레이브 세계관 에이멜 롱폼 애니메이션 프로젝트 착수 — 스토리보드·씬 구성 시작' },
+  { date: '2026.05', text: '에이멜쇼츠 완성본 & 테비 절제 보스전 영상 완성 — 대형 작품 2편 동시 공개 준비' },
+  { date: '2026.06', text: '파르페 아트 갤러리 오픈 🎉 — 모든 작품을 한 곳에서 만날 수 있는 공간 탄생' },
 ];
 
 const TIPS = [
-  { icon: '🎯', title: '꾸준한 업로드 루틴', desc: '주 1회 이상 작품 공개로 알고리즘 타기' },
-  { icon: '📱', title: '멀티 플랫폼 전략', desc: '유튜브 쇼츠, 트위터, 인스타그램 동시 운영' },
-  { icon: '🤝', title: '콜라보 & 팬 소통', desc: '버튜버 커뮤니티 적극 참여, 팬아트 반응' },
-  { icon: '🎨', title: '시그니처 스타일', desc: '파르페만의 색감·캐릭터 일관성으로 브랜딩' },
-  { icon: '📊', title: '성과 분석 & 피드백', desc: '댓글·조회수 분석으로 인기 콘텐츠 파악' },
+  {
+    icon: '🎯',
+    title: '꾸준한 업로드 루틴',
+    desc: '주 1회 이상 작품 공개로 알고리즘 신뢰도를 확보하세요. 쇼츠 + 롱폼을 번갈아 올리면 유입 채널이 다양해집니다. 업로드 직후 커뮤니티 포스팅으로 초기 반응을 이끌어내는 것이 핵심입니다.',
+  },
+  {
+    icon: '📱',
+    title: '멀티 플랫폼 전략',
+    desc: '유튜브 쇼츠 → 트위터/X → 인스타그램 → OGQ 마켓 순으로 동일 콘텐츠를 재배포하세요. 플랫폼별 최적 비율(9:16 / 1:1 / 16:9)만 맞추면 작업 시간을 크게 줄일 수 있습니다.',
+  },
+  {
+    icon: '🤝',
+    title: '콜라보 & 팬 소통',
+    desc: '팬아트 업로드 시 해당 버튜버를 태그하고 RT를 유도하세요. 팬들의 반응 댓글에 직접 답글을 달면 충성도가 높아집니다. 콜라보 제안은 DM보다 포트폴리오 링크가 담긴 이메일이 효과적입니다.',
+  },
+  {
+    icon: '🎨',
+    title: '시그니처 스타일 브랜딩',
+    desc: '파르페만의 청보라 색감·왕관 날개 아이콘을 모든 작품에 일관되게 사용하세요. 썸네일 템플릿을 고정하면 채널을 한눈에 인식할 수 있습니다. 워터마크는 우하단에 작게 넣는 것이 가장 자연스럽습니다.',
+  },
+  {
+    icon: '📊',
+    title: '성과 분석 & 성장 피드백',
+    desc: '업로드 48시간 후 조회수·클릭률·시청 지속률을 체크하세요. 상위 20% 콘텐츠의 공통점을 찾아 반복 제작하는 것이 성장의 지름길입니다. 댓글 키워드 분석으로 다음 작품 주제를 결정하면 반응률이 올라갑니다.',
+  },
 ];
 
 // ── 유틸 ──────────────────────────────────────────────────────────────────────
@@ -260,6 +282,21 @@ function buildGalleryCard(item, index, tabName) {
       </div>
       <div class="card-info"><span class="card-title">${item.title}</span>
       <span class="card-sub">Google Drive</span></div>`;
+  } else if (item.type === 'link') {
+    card.innerHTML = `
+      <div class="card-img-wrap" style="flex-direction:column;gap:10px;background:rgba(0,0,0,0.45);">
+        <span style="font-size:2.8rem;">🎬</span>
+        <span style="font-size:0.72rem;color:var(--color-text-muted);text-align:center;padding:0 8px;">${item.desc || ''}</span>
+      </div>
+      <div class="card-info">
+        <span class="card-title">${item.title}</span>
+        <a href="${item.url}" target="_blank" rel="noopener noreferrer"
+           onclick="event.stopPropagation()"
+           style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 14px;font-size:0.75rem;font-family:var(--font-primary);background:rgba(0,206,209,0.12);border:1px solid var(--color-primary);border-radius:4px;color:var(--color-primary);text-decoration:none;transition:background .2s;">
+          ▶ Drive에서 보기
+        </a>
+      </div>`;
+    card.dataset.noLightbox = 'true';
   } else {
     card.innerHTML = `
       <div class="card-img-wrap card-placeholder">
@@ -700,6 +737,7 @@ function initHeaderScroll() {
 // [FIX-LOW] window.parfaitMusic 메서드 존재 여부 방어 체크 추가
 function initMusicPlayer() {
   const toggleBtn = qs('#music-toggle');
+  const stopBtn   = qs('#music-stop');
   const volSlider = qs('#music-vol');
 
   if (toggleBtn) {
@@ -711,6 +749,15 @@ function initMusicPlayer() {
         toggleBtn.textContent = !playing ? '⏸' : '▶';
         toggleBtn.title       = !playing ? '음악 정지' : '음악 재생';
       }
+    });
+  }
+
+  if (stopBtn) {
+    stopBtn.addEventListener('click', () => {
+      if (window.parfaitMusic && typeof window.parfaitMusic.pause === 'function') {
+        window.parfaitMusic.pause();
+      }
+      if (toggleBtn) { toggleBtn.textContent = '▶'; toggleBtn.dataset.playing = 'false'; }
     });
   }
 
@@ -992,7 +1039,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initCardTilt();
   initScrollSpy();
-  initScrollReveal();
   initTimeline();
   initTips();
   initSNS();
@@ -1002,4 +1048,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initMusicPlayer();
   initVisualizer();
   initGiscus();
+  initScrollReveal(); // 동적 콘텐츠 추가 후 마지막에 실행
 });
