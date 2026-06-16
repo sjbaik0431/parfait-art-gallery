@@ -13,9 +13,9 @@ const GALLERY_DATA = {
   ],
   animation: [
     { id: 'anim1', type: 'video', src: 'assets/videos/tebi-omni.mp4', title: '전방향 미소년 테비' },
-    { id: 'anim2', type: 'link', url: 'https://drive.google.com/file/d/DRIVE_ID_에이멜쇼츠/view', title: '에이멜쇼츠 완성본', desc: '330MB · 클릭하여 Google Drive에서 재생' },
-    { id: 'anim3', type: 'link', url: 'https://drive.google.com/file/d/DRIVE_ID_롱폼/view', title: '에이멜 테비 롱폼 완성2', desc: '3.7GB · 클릭하여 Google Drive에서 재생' },
-    { id: 'anim4', type: 'link', url: 'https://drive.google.com/file/d/DRIVE_ID_보스전/view', title: '테비 절제 보스전', desc: '1GB · 클릭하여 Google Drive에서 재생' },
+    { id: 'anim2', type: 'link', url: 'https://drive.google.com/file/d/1T_7GuX7Oj_EpUx6uF-0wU2VMKwVD_5Qc/view?usp=drive_link', title: '에이멜쇼츠 완성본', desc: '330MB · Google Drive에서 재생' },
+    { id: 'anim3', type: 'link', url: 'https://drive.google.com/file/d/1rMupkLSmcPcxgF72M8JtU8ltwaqluBnE/view?usp=drive_link', title: '에이멜 테비 롱폼 완성2', desc: '3.7GB · Google Drive에서 재생' },
+    { id: 'anim4', type: 'link', url: 'https://drive.google.com/file/d/1u-V8X4Vz41eKZWsPeV9BVs318VIVB7jx/view?usp=drive_link', title: '테비 절제 보스전', desc: '1GB · Google Drive에서 재생' },
   ],
   emoticon: Array.from({ length: 24 }, (_, i) => ({
     id: `emo${i + 1}`,
