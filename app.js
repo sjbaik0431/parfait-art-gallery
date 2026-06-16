@@ -258,7 +258,7 @@ function initTyping() {
 // ── 4. 갤러리 렌더링 ──────────────────────────────────────────────────────────
 function buildGalleryCard(item, index, tabName) {
   const card = document.createElement('div');
-  card.className = 'gallery-card reveal';
+  card.className = `gallery-card reveal${tabName === 'emoticon' ? ' emo-card' : ''}`;
   card.dataset.index = index;
   card.dataset.tab   = tabName;
 
